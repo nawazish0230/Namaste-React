@@ -1,3 +1,4 @@
+import React from "react";
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
@@ -34,7 +35,7 @@ const Body = () => {
     const data = await fetch(RES_LIST_URL);
     //convert the stream of data to json
     const jsonData = await data.json(); //await for the promise to be resolved
-    console.log(jsonData);
+    // console.log(jsonData);
     //optional chaining in JS '?.'
     // console.log(jsonData?.data?.cards[2]?.data?.data?.cards);
     setListOfRestaurants(
@@ -74,6 +75,7 @@ const Body = () => {
         </div>
         <div className="search m-3 px-2">
           <input
+            data-testid="searchInput"
             type="text"
             className="search-box mx-4 p-[5px] border border-stone-950 rounded-md "
             value={searchText}
@@ -84,10 +86,10 @@ const Body = () => {
           <button
             className="p-2 bg-slate-300 rounded-md hover:shadow-md"
             onClick={() => {
-              console.log(searchText);
+              // console.log(searchText);
               //filter logic:
               const filtered = listOfRestaurants.filter((res) =>
-                res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
               setFilteredRestaurants(filtered);
             }}
@@ -119,7 +121,7 @@ const Body = () => {
               );
               //update the state:
               setFilteredRestaurants(filteredRestaurants); //thsi updates the state variable and leads to re-rendering of the component!
-              console.log(listOfRestaurants);
+              // console.log(listOfRestaurants);
             }}
           >
             <div className="font-bold">Top Rated Restaurants</div>
